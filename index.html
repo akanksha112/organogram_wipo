@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WIPO Organisational Chart</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --f:      'Cormorant Garamond', Georgia, serif;
+  --bg:     #F8F8F6;
+  --white:  #FFFFFF;
+  --ink:    #1A1A2A;
+  --mid:    #5A5A70;
+  --soft:   #9898A8;
+  --line:   #E6E6EE;
+
+  /* pastel fills — right-column shades from the palette */
+  --c-blue:    #EBF0FF;
+  --c-blue-d:  #142966;
+  --c-blue-b:  #ADC2FF;
+
+  --c-green:   #EBFAEB;
+  --c-green-d: #1A661A;
+  --c-green-b: #ADEBAD;
+
+  --c-red:     #FFE6E6;
+  --c-red-d:   #990000;
+  --c-red-b:   #FFCCCC;
+
+  --c-yellow:  #FFFFE6;
+  --c-yellow-d:#666600;
+  --c-yellow-b:#FFFFCC;
+
+  --c-purple:  #FAE6FA;
+  --c-purple-d:#520052;
+  --c-purple-b:#F5CCF5;
+
+  --c-pink:    #FFE6F0;
+  --c-pink-d:  #990033;
+  --c-pink-b:  #FFCCE0;
+
+  --c-sky:     #E6F4FF;
+  --c-sky-d:   #0A1433;
+  --c-sky-b:   #C2D1FF;
+
+  --c-sage:    #F0FAEB;
+  --c-sage-d:  #1A4A10;
+  --c-sage-b:  #D6F5D6;
+
+  --r: 12px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--f);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+/* ── HEADER ─────────────────────────────── */
+.site-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  padding: 44px 48px 34px;
+  text-align: center;
+}
+.site-header h1 {
+  font-size: 34px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: .2px;
+}
+.site-header .sub {
+  font-size: 17px;
+  color: var(--mid);
+  font-style: italic;
+  margin-top: 7px;
+}
+
+/* ── WRAP ───────────────────────────────── */
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+/* ── DG CARD ────────────────────────────── */
+.dg-row { display: flex; justify-content: center; }
+.dg-card {
+  background: var(--white);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--r);
+  padding: 20px 56px;
+  text-align: center;
+  min-width: 300px;
+}
+.dg-card .role {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--mid);
+  margin-bottom: 6px;
+}
+.dg-card .name {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.dg-card .meta {
+  font-size: 14px;
+  color: var(--soft);
+  font-style: italic;
+  margin-top: 4px;
+}
+
+/* ── CONNECTORS ─────────────────────────── */
+.vline {
+  width: 1.5px;
+  background: var(--line);
+  margin: 0 auto;
+}
+.sec-tag {
+  text-align: center;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  color: var(--soft);
+  margin: 4px 0;
+}
+
+/* ── DIRECT REPORTS ─────────────────────── */
+.dr-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 8px 0;
+}
+.dr-chip {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  padding: 8px 20px;
+  text-align: center;
+  max-width: 230px;
+}
+.dr-chip .du  { font-size: 12px; color: var(--soft); line-height: 1.3; }
+.dr-chip .dn  { font-size: 15px; font-weight: 600; color: var(--ink); margin-top: 3px; }
+.dr-chip .dnt { font-size: 11px; color: var(--soft); font-style: italic; margin-top: 2px; line-height: 1.3; }
+
+/* ── SECTORS GRID ───────────────────────── */
+.sectors-note {
+  text-align: center;
+  font-size: 14px;
+  color: var(--soft);
+  font-style: italic;
+  margin: 22px 0 14px;
+}
+.sg {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.sb {
+  all: unset;
+  cursor: pointer;
+  border-radius: var(--r);
+  overflow: hidden;
+  border: 1.5px solid transparent;
+  display: block;
+  width: 100%;
+  background: var(--white);
+  transition: transform .18s, box-shadow .18s, border-color .18s;
+}
+.sb:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 22px rgba(0,0,0,.08);
+}
+.sb.on {
+  border-color: var(--sd);
+  box-shadow: 0 0 0 3px var(--sl), 0 6px 22px rgba(0,0,0,.08);
+  transform: translateY(-2px);
+}
+
+.sb-stripe { height: 5px; }
+.sb-body {
+  padding: 14px 14px 10px;
+  transition: background .15s;
+}
+.sb.on .sb-body { background: var(--sl); }
+.sb-label { font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+.sb-ddg   { font-size: 12px; color: var(--mid); font-style: italic; margin-top: 5px; }
+.sb-nat   { font-size: 11px; color: var(--soft); margin-top: 2px; }
+
+.sb-foot {
+  padding: 7px 14px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sb-foot .cnt  { font-size: 11px; color: var(--soft); }
+.sb-foot .arr  { font-size: 13px; color: var(--soft); transition: transform .2s; }
+.sb.on .arr    { transform: rotate(180deg); }
+
+/* ── DETAIL PANEL ───────────────────────── */
+.dp {
+  display: none;
+  background: var(--white);
+  border: 1.5px solid var(--sd, #ddd);
+  border-radius: var(--r);
+  overflow: hidden;
+  margin-bottom: 24px;
+  animation: pop .18s ease;
+}
+.dp.on { display: block; }
+@keyframes pop {
+  from { opacity:0; transform:translateY(-6px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+.dp-head {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dp-head .dph-title { font-size: 20px; font-weight: 600; color: var(--ink); }
+.dp-head .dph-sub   { font-size: 14px; color: var(--mid); font-style: italic; margin-top: 3px; }
+.dp-close {
+  all: unset;
+  cursor: pointer;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; color: var(--soft);
+  transition: background .15s;
+  flex-shrink: 0;
+}
+.dp-close:hover { background: var(--bg); }
+
+.dp-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.dp-table thead th {
+  padding: 9px 24px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--mid);
+  text-align: left;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+.dp-table tbody tr {
+  border-bottom: 1px solid var(--line);
+  transition: background .1s;
+}
+.dp-table tbody tr:last-child { border-bottom: none; }
+.dp-table tbody tr:hover { background: var(--bg); }
+.dp-table td { padding: 13px 24px; vertical-align: middle; }
+
+.td-u { font-size: 15px; font-weight: 500; color: var(--ink); width: 50%; line-height: 1.4; }
+.td-p { width: 35%; }
+.pn   { font-size: 16px; font-weight: 600; line-height: 1.3; }
+.pnt  { font-size: 12px; color: var(--soft); font-style: italic; margin-top: 3px; line-height: 1.3; }
+.td-t { width: 15%; }
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 3px 11px;
+  border-radius: 20px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ── LEGEND ─────────────────────────────── */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  padding: 16px 20px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  margin-top: 8px;
+}
+.li {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; color: var(--mid);
+}
+.li-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── FOOTER ─────────────────────────────── */
+footer {
+  text-align: center;
+  padding: 22px;
+  font-size: 13px;
+  color: var(--soft);
+  font-style: italic;
+  border-top: 1px solid var(--line);
+  background: var(--white);
+}
+footer a { color: var(--mid); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* ── RESPONSIVE ─────────────────────────── */
+@media (max-width: 760px) {
+  .sg { grid-template-columns: repeat(2, 1fr); }
+  .site-header h1 { font-size: 24px; }
+  .wrap { padding: 28px 16px 60px; }
+  .dp-table thead { display: none; }
+  .dp-table td { display: block; width: 100% !important; padding: 5px 16px; }
+  .dp-table tr { display: block; padding: 10px 0; border-bottom: 1px solid var(--line); }
+}
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>World Intellectual Property Organization</h1>
+  <div class="sub">Organisational Chart — Director General, Sector Heads &amp; Division Directors</div>
+</header>
+
+<main class="wrap">
+
+  <!-- DG -->
+  <div class="dg-row">
+    <div class="dg-card">
+      <div class="role">Director General</div>
+      <div class="name">Daren Tang</div>
+      <div class="meta">Singapore &nbsp;·&nbsp; In office since October 2020</div>
+    </div>
+  </div>
+
+  <div class="vline" style="height:26px"></div>
+  <div class="sec-tag">Direct reports to the Director General</div>
+  <div class="vline" style="height:10px"></div>
+
+  <!-- DG Direct Reports -->
+  <div class="dr-wrap">
+    <div class="dr-chip">
+      <div class="du">Diplomatic Engagement &amp; Assemblies Affairs Division</div>
+      <div class="dn">Anil Murthy</div>
+    </div>
+    <div class="dr-chip">
+      <div class="du">Human Resources Management Department</div>
+      <div class="dn">Adélaïde Barbier</div>
+    </div>
+    <div class="dr-chip">
+      <div class="du">Internal Oversight Division</div>
+      <div class="dn">Julie Nyang'aya</div>
+    </div>
+    <div class="dr-chip">
+      <div class="du">News &amp; Media Division</div>
+      <div class="dn">Samar Shamoon</div>
+    </div>
+    <div class="dr-chip">
+      <div class="du">Office of the Ombudsperson</div>
+      <div class="dn">Independent Role</div>
+      <div class="dnt">Confidential &amp; impartial dispute resolution — no management authority</div>
+    </div>
+    <div class="dr-chip">
+      <div class="du">WIPO Ethics Office</div>
+      <div class="dn">Independent Role</div>
+      <div class="dnt">Ethical standards &amp; staff conduct compliance — no management authority</div>
+    </div>
+  </div>
+
+  <div class="vline" style="height:26px"></div>
+  <div class="sec-tag">Eight Sectors — each headed by a Deputy or Assistant Director General</div>
+  <div class="vline" style="height:10px"></div>
+
+  <div class="sectors-note">Select a sector below to view all divisions and their directors</div>
+
+  <div class="sg" id="grid"></div>
+  <div class="dp" id="panel"></div>
+  <div class="legend" id="legend"></div>
+
+</main>
+
+<footer>
+  Source: <a href="https://www.wipo.int/en/web/about-wipo/activities-by-unit" target="_blank">wipo.int/en/web/about-wipo/activities-by-unit</a>
+  &nbsp;·&nbsp; Prepared for India WIPO Policy Blueprint &nbsp;·&nbsp; June 2026
+</footer>
+
+<script>
+const S = [
+  {
+    id:'pat', label:'Patents &amp; Technology',
+    ddg:'DDG Lisa Jorgenson', nat:'USA',
+    sl:'#EBF0FF', sd:'#142966', sb:'#ADC2FF',
+    divs:[
+      {u:'PCT Legal &amp; User Relations Division',           p:'Loreto Bresky',             n:'',                                            t:'Division'},
+      {u:'PCT International Cooperation Division',           p:'Loreto Bresky',             n:'Also leads Legal &amp; User Relations',        t:'Division'},
+      {u:'Patent &amp; Technology Law Division',             p:'Andras Jokuti',             n:'SCP; SEPs; GRATK Treaty; trade secrets',       t:'Division'},
+      {u:'PCT Services Department',                          p:'Tsuyoshi (Yoshi) Isozumi',  n:'Oversees Operations &amp; Business Dev Divs',  t:'Department'},
+      {u:'PCT Business Development Division',                p:'Michael Richardson',        n:'Policy, IT specifications, PCT Roadmap',       t:'Division'},
+      {u:'PCT Operations Division',                          p:'Ting Zhao',                 n:'Processes ~273,900 applications per year',     t:'Division'},
+      {u:'PCT Translation Division',                         p:'James Phillips',            n:'10 PCT publication languages; WIPO Translate', t:'Division'},
+      {u:'Language Division',                                p:'Lijun Fan',                 n:'Interpretation services; WIPO Pearl terminology', t:'Division'},
+    ]
+  },
+  {
+    id:'brd', label:'Brands &amp; Designs',
+    ddg:'DDG Binying Wang', nat:'China',
+    sl:'#EBFAEB', sd:'#1A661A', sb:'#ADEBAD',
+    divs:[
+      {u:'Dept for Trademarks, Industrial Designs &amp; GIs', p:'Marcus Höpperger',  n:'Policy &amp; law for trademarks, designs, GIs',  t:'Department'},
+      {u:'Hague Registry',                                    p:'Grégoire Bisson',   n:'International design registrations',              t:'Registry'},
+      {u:'Madrid Registry',                                   p:'David Muls',        n:'International trademark registrations',           t:'Registry'},
+      {u:'WIPO Office in China',                              p:'Hua Liu',           n:'Regional office head',                           t:'Office'},
+    ]
+  },
+  {
+    id:'cop', label:'Copyright &amp; Creative Industries',
+    ddg:'DDG Sylvie Forbin', nat:'France',
+    sl:'#FFE6E6', sd:'#990000', sb:'#FFCCCC',
+    divs:[
+      {u:'Copyright Law Division',        p:'Michele Woods',             n:'Legislative assistance; SCCR negotiations',    t:'Division'},
+      {u:'Copyright Management Division', p:'Benoît Müller',            n:'Creator support; CMO development',              t:'Division'},
+      {u:'WIPO Awards',                   p:'Marcelo Di Pietro Peralta', n:'Global Awards programme',                      t:'Unit'},
+    ]
+  },
+  {
+    id:'reg', label:'Regional &amp; National Development',
+    ddg:'DDG Hasan Kleib', nat:'Indonesia',
+    sl:'#FFFFE6', sd:'#666600', sb:'#FFFFCC',
+    divs:[
+      {u:'Department for Development Cooperation',         p:'Beatriz Amorim-Borher',        n:'Technical assistance to developing countries',   t:'Department'},
+      {u:'Development Agenda Coordination Division',       p:'Hasan Kleib',                  n:'DDG also serves as head',                        t:'Division'},
+      {u:'Division for External Offices (LDC/LLDC/SIDS)', p:'Steve Thom',                   n:'Coordination for least-developed states',        t:'Division'},
+      {u:'WIPO Academy',                                   p:'Hongbing Chen',                n:'IP education &amp; capacity building',           t:'Academy'},
+      {u:'WIPO Algeria Office',                            p:'Mohamed Saleck Ahmed Ethmane', n:'Regional office — Africa',                       t:'Office'},
+      {u:'WIPO Brazil Office',                             p:'Schmuell Cantanhede',          n:'Regional office — Latin America',                t:'Office'},
+      {u:'WIPO Nigeria Office',                            p:'Moody Oluwatobiloba',          n:'Regional office — Africa',                       t:'Office'},
+      {u:'WIPO Office in Russian Federation',              p:'Pavel Spitsyn',                n:'Regional office — CIS region',                   t:'Office'},
+      {u:'WIPO Singapore Office',                          p:'Thitapha Wattanapruttipaisan', n:'Regional office — Asia-Pacific',                 t:'Office'},
+    ]
+  },
+  {
+    id:'adm', label:'Administration, Finance &amp; Management',
+    ddg:'ADG Andrew Staines', nat:'UK',
+    sl:'#F0F0F0', sd:'#3A3A3A', sb:'#CCCCCC',
+    divs:[
+      {u:'Department of Program Planning &amp; Finance',     p:'Chitra Narayanaswamy',   n:'Budget and financial reporting',                   t:'Department'},
+      {u:'Information &amp; Communication Technology Dept',  p:'Karl Kalejs',            n:'IT systems, digitalisation and data',              t:'Department'},
+      {u:'Office of the Legal Counsel',                      p:'Anna Morawiec Mansfield',n:'Legal advice to the Organisation',                 t:'Office'},
+      {u:'Central Services Division',                        p:'Bérénice Bessiere',      n:'Procurement, travel and conference services',     t:'Division'},
+      {u:'Security &amp; Information Assurance Division',    p:'Richard Lane',           n:'Physical and cyber security',                     t:'Division'},
+      {u:'IP Futures &amp; Knowledge Management',            p:'Andrew Staines',         n:'ADG also serves as head; foresight &amp; innovation intelligence', t:'Unit'},
+    ]
+  },
+  {
+    id:'glb', label:'Global Challenges &amp; Partnerships',
+    ddg:'ADG Edward Kwakwa', nat:'Ghana',
+    sl:'#EBFAEB', sd:'#0F3D0F', sb:'#ADEBAD',
+    divs:[
+      {u:'Building Respect for IP Division',  p:'Todd Reves',              n:'IP enforcement; WIPO ALERT programme',            t:'Division'},
+      {u:'External Relations Division',        p:'Dalila Hamou',            n:'Partnerships with UN, NGOs and IGOs',             t:'Division'},
+      {u:'Global Challenges Division',         p:'Marion (Amy) Dietterich', n:'Health, climate &amp; food security — IP nexus',  t:'Division'},
+      {u:'IP and Competition Policy',          p:'Giovanni Napolitano',     n:'Competition-IP interface policy',                 t:'Unit'},
+      {u:'Sustainable Development Goals',      p:'Edward Kwakwa',           n:'ADG also serves as head; SDG-IP alignment',       t:'Unit'},
+      {u:'Traditional Knowledge Division',     p:'Ann Edillon',             n:'IGC negotiations; GRATK Treaty implementation',   t:'Division'},
+      {u:'WIPO Office to the United Nations',  p:'Edward Kwakwa',           n:'ADG also leads UN liaison — New York &amp; Geneva', t:'Office'},
+    ]
+  },
+  {
+    id:'inn', label:'IP &amp; Innovation Ecosystems',
+    ddg:'ADG Marco Aleman', nat:'Colombia',
+    sl:'#FAE6FA', sd:'#520052', sb:'#F5CCF5',
+    divs:[
+      {u:'Department for Economics &amp; Data Analytics', p:'Carsten Fink',             n:'Also serves as WIPO Chief Economist; GII, WIPR', t:'Department'},
+      {u:'Statistics &amp; Data Analytics Division',      p:'Nisha Jalan',              n:'WIPI; IP statistics database',                   t:'Division'},
+      {u:'IP for Business Division',                      p:'Guy Pessach',              n:'SME support; IP financing; intangibles',          t:'Division'},
+      {u:'IP for Innovators Department',                  p:'Marco Aleman',             n:'ADG also serves as head; TISC; IAP; tech transfer', t:'Department'},
+      {u:'WIPO Arbitration &amp; Mediation Center',       p:'Ignacio De Castro Llamas', n:'Domain name disputes; IP alternative dispute resolution', t:'Centre'},
+      {u:'WIPO Judicial Institute',                       p:'Eun Joo Min',              n:'Judicial training on intellectual property',      t:'Institute'},
+    ]
+  },
+  {
+    id:'inf', label:'Infrastructure &amp; Platforms',
+    ddg:'ADG Ken Natsume', nat:'Japan',
+    sl:'#EBF0FF', sd:'#0A1433', sb:'#C2D1FF',
+    divs:[
+      {u:'Customer Experience, Mktg &amp; Digital Engagement', p:'Kenichiro Natsume', n:'ADG also serves as head; digital engagement',      t:'Division'},
+      {u:'Global Databases Division',                           p:'Christophe Mazenc', n:'PATENTSCOPE, Global Brand DB, Hague Express',     t:'Division'},
+      {u:'International Classifications &amp; Standards Div.',  p:'Kunihiko Fushimi',  n:'IPC, Nice, Vienna, Locarno classifications',      t:'Division'},
+      {u:'IP &amp; Frontier Technologies Division',             p:'Ulrike Till',       n:'AI/IP policy; blockchain; frontier technologies', t:'Division'},
+      {u:'IP Office Business Solutions Division',               p:'Kenichiro Natsume', n:'ADG also serves as head; office modernisation',   t:'Division'},
+      {u:'WIPO Japan Office',                                   p:'Tomoki Sawai',      n:'Regional office — Asia-Pacific / Japan hub',      t:'Office'},
+    ]
+  },
+];
+
+/* badge colours — all pastels */
+const TB = {
+  Division:   {bg:'#EBF0FF', c:'#142966'},
+  Department: {bg:'#EBFAEB', c:'#1A661A'},
+  Registry:   {bg:'#FFFFE6', c:'#666600'},
+  Office:     {bg:'#F0F0F0', c:'#3A3A3A'},
+  Academy:    {bg:'#FAE6FA', c:'#520052'},
+  Unit:       {bg:'#FFE6E6', c:'#990000'},
+  Centre:     {bg:'#EBF0FF', c:'#0A1433'},
+  Institute:  {bg:'#EBF0FF', c:'#0A1433'},
+};
+
+let active = null;
+
+function buildGrid() {
+  document.getElementById('grid').innerHTML = S.map(s => `
+    <button class="sb${active===s.id?' on':''}"
+            style="--sl:${s.sl};--sd:${s.sd};--sb:${s.sb}"
+            onclick="toggle('${s.id}')">
+      <div class="sb-stripe" style="background:${s.sd}"></div>
+      <div class="sb-body">
+        <div class="sb-label">${s.label}</div>
+        <div class="sb-ddg">${s.ddg}</div>
+        <div class="sb-nat">${s.nat}</div>
+      </div>
+      <div class="sb-foot">
+        <span class="cnt">${s.divs.length} units</span>
+        <span class="arr">&#9660;</span>
+      </div>
+    </button>`).join('');
+}
+
+function buildPanel() {
+  const el = document.getElementById('panel');
+  if (!active) { el.className='dp'; el.innerHTML=''; return; }
+  const s = S.find(x=>x.id===active);
+
+  el.style.setProperty('--sd', s.sd);
+  el.innerHTML = `
+    <div class="dp-head" style="background:${s.sl};border-bottom:1px solid ${s.sb}">
+      <div>
+        <div class="dph-title">${s.label}</div>
+        <div class="dph-sub">${s.ddg} &nbsp;·&nbsp; ${s.nat}</div>
+      </div>
+      <button class="dp-close" onclick="toggle('${s.id}')" title="Close">&#10005;</button>
+    </div>
+    <table class="dp-table">
+      <thead>
+        <tr>
+          <th>Division / Department / Unit</th>
+          <th>Director / Head</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>${s.divs.map(({u,p,n,t})=>{
+        const tb = TB[t]||TB.Unit;
+        return `<tr>
+          <td class="td-u">${u}</td>
+          <td class="td-p">
+            <div class="pn" style="color:${s.sd}">${p}</div>
+            ${n?`<div class="pnt">${n}</div>`:''}
+          </td>
+          <td class="td-t">
+            <span class="badge" style="background:${tb.bg};color:${tb.c}">${t}</span>
+          </td>
+        </tr>`;
+      }).join('')}</tbody>
+    </table>`;
+  el.className='dp on';
+  setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'nearest'}),60);
+}
+
+function buildLegend() {
+  document.getElementById('legend').innerHTML = S.map(s=>`
+    <div class="li">
+      <div class="li-dot" style="background:${s.sd}"></div>
+      ${s.label}
+    </div>`).join('');
+}
+
+function toggle(id) {
+  active = active===id ? null : id;
+  buildGrid();
+  buildPanel();
+}
+
+buildGrid();
+buildLegend();
+</script>
+</body>
+</html>
